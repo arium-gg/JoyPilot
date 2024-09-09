@@ -1,0 +1,40 @@
+{
+  "name": "joypilot",
+  "version": "1.0.1",
+  "description": "JoyPilot is a lightweight JavaScript library for seamless gamepad management, allowing developers to easily handle button presses, releases, and analog stick movements. JoyPilot supports custom button and stick mappings, and provides event hooks for gamepad connection and disconnection. Ideal for web-based gaming projects and interactive applications.",
+  "main": "JoyPilot.js",
+  "scripts": {
+    "build": "terser JoyPilot.js -o JoyPilot.min.js && javascript-obfuscator JoyPilot.min.js --output JoyPilot.min.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Natico/JoyPilot.git"
+  },
+  "author": "Natico",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Natico/JoyPilot/issues"
+  },
+  "keywords": [
+    "gamepad",
+    "controller",
+    "joystick",
+    "input",
+    "gaming",
+    "JavaScript",
+    "JoyPilot",
+    "web",
+    "browser",
+    "events",
+    "gamepad-management",
+    "buttons",
+    "axes",
+    "mapping"
+  ],
+  "homepage": "https://github.com/Natico/JoyPilot#readme",
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.1",
+    "terser": "^5.31.6"
+  }
+}

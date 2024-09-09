@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamepad Test</title>
+    <style>
+        .circle {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #9c9c9c63;
+            border-radius: 50%;
+            position: relative;
+            margin: 30px 45px;
+            float: left;
+            line-height: 60px;
+            text-align: center;
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+            
+        }
+
+        .circle-point {
+            width: 60px;
+            height: 60px;
+            background-color: #1d9cad87;
+            border-radius: 50%;
+            position: absolute;
+            top: calc(50% - 30px);
+            left: calc(50% - 30px);
+            border: 1px solid #218bba;
+        }
+
+        .button {
+            width: 120px;
+            height: 60px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            margin: 10px 15px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.1s;
+        }
+
+        .button.active {
+            background-color: #1d9cad;
+            color: white;
+        }
+        #buttons-container{
+            margin: 0 auto;
+            display: table;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Gamepad Test</h1>
+    <div id="gamepad-info"></div>
+
+    <div class="axe-left">
+        <div id="AXIS_0">Left Stick X : <span>0</span></div>
+        <div id="AXIS_1">Left Stick Y : <span>0</span></div>
+        <div id="AXIS_2">Right Stick X : <span>0</span></div>
+        <div id="AXIS_3">Right Stick Y : <span>0</span></div>
+        <div>
+            <div class="circle circle-left">
+                <div class="circle-point" id="button-LS">LS</div>                
+            </div>
+        
+            <div class="circle circle-right">
+                <div class="circle-point" id="button-RS">RS</div>  
+                <div class="circle-point"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="buttons-container">
+
+        <div class="wrapper-btns">
+            <div class="button" id="button-A">A</div>
+            <div class="button" id="button-B">B</div>
+            <div class="button" id="button-X">X</div>
+            <div class="button" id="button-Y">Y</div>
+        </div>
+        <div>
+            <div class="button" id="button-LB">LB</div>
+            <div class="button" id="button-RB">RB</div>
+            <div class="button" id="button-LT">LT</div>
+            <div class="button" id="button-RT">RT</div>
+        </div>
+
+        <div>
+            <div class="button" id="button-DPad_Up">DP Up</div>
+            <div class="button" id="button-DPad_Down">DP Down</div>
+            <div class="button" id="button-DPad_Left">DP Left</div>
+            <div class="button" id="button-DPad_Right">DP Right</div>
+        </div>
+        <div>
+            <div class="button" id="button-Back">Back</div>
+            <div class="button" id="button-Start">Start</div>
+        </div>
+
+    </div>
+
+    <script src="../../JoyPilot.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
