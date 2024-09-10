@@ -69,7 +69,7 @@ joyPilot.onStickRelease = (stickName, gamepadIndex, axesData) => {
 };
 
 
-// شروع تست با اتصال گیم‌پد
+
 window.addEventListener("gamepadconnected", (event) => {
     joyPilot.connectGamepad(event.gamepad);
 });
