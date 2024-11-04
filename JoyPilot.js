@@ -20,7 +20,7 @@ class JoyPilot {
     connectGamepad(gamepad) {
         this.gamepads[gamepad.index] = gamepad;
         this.previousAxes[gamepad.index] = this._initializeAxesData();
-        this.isStickReleased[gamepad.index] = false;
+        this.isStickReleased[gamepad.index] = { Left_Stick: true, Right_Stick: true }; // Modification in this line
         if (this.onConnect) this.onConnect(gamepad.index);
         this.startLoop();
     }
@@ -73,18 +73,20 @@ class JoyPilot {
                     this.previousButtons[gamepadIndex][buttonIndex] = pressed;
                 });
 
-              
+                // Handle shocker axes
                 const axesData = this.previousAxes[gamepadIndex];
-                let isStickMoved = false;
+                let stickMovedStatus = { Left_Stick: false, Right_Stick: false };
 
                 gamepad.axes.forEach((axisValue, axisIndex) => {
                     const stickName = this.stickMap[axisIndex] || `Stick ${axisIndex}`;
+                    const isLeftStick = stickName.includes("Left");
+                    const stickKey = isLeftStick ? 'Left_Stick' : 'Right_Stick';
+
                     if (Math.abs(axisValue) > this.tolerance) {
                         axesData[stickName] = axisValue;
-                        isStickMoved = true;
-                        this.isStickReleased[gamepadIndex] = false;
+                        stickMovedStatus[stickKey] = true;
+                        this.isStickReleased[gamepadIndex][stickKey] = false;
 
-                        // Call onStickMove with stickName
                         if (this.onStickMove) {
                             this.onStickMove(stickName, gamepadIndex, { ...axesData });
                         }
@@ -93,15 +95,16 @@ class JoyPilot {
                     }
                 });
 
-                if (!isStickMoved && !this.isStickReleased[gamepadIndex]) {
-                    // Call onStickRelease with stickName
-                    if (this.onStickRelease) {
-                        Object.keys(axesData).forEach((stickName) => {
+                // Check release status for each shocker independently
+                Object.keys(stickMovedStatus).forEach(stickKey => {
+                    if (!stickMovedStatus[stickKey] && !this.isStickReleased[gamepadIndex][stickKey]) {
+                        if (this.onStickRelease) {
+                            const stickName = stickKey === 'Left_Stick' ? 'Left Stick' : 'Right Stick';
                             this.onStickRelease(stickName, gamepadIndex, { ...axesData });
-                        });
+                        }
+                        this.isStickReleased[gamepadIndex][stickKey] = true;
                     }
-                    this.isStickReleased[gamepadIndex] = true; 
-                }
+                });
             }
         });
     }
