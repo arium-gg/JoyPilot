@@ -83,18 +83,22 @@ class JoyPilot {
                         axesData[stickName] = axisValue;
                         isStickMoved = true;
                         this.isStickReleased[gamepadIndex] = false;
+
+                        // Call onStickMove with stickName
+                        if (this.onStickMove) {
+                            this.onStickMove(stickName, gamepadIndex, { ...axesData });
+                        }
                     } else if (axesData[stickName] !== 0) {
                         axesData[stickName] = 0;
                     }
                 });
 
-                if (isStickMoved) {
-                    if (this.onStickMove) {
-                        this.onStickMove(null, gamepadIndex, { ...axesData });
-                    }
-                } else if (!this.isStickReleased[gamepadIndex]) {
+                if (!isStickMoved && !this.isStickReleased[gamepadIndex]) {
+                    // Call onStickRelease with stickName
                     if (this.onStickRelease) {
-                        this.onStickRelease(null, gamepadIndex, { ...axesData });
+                        Object.keys(axesData).forEach((stickName) => {
+                            this.onStickRelease(stickName, gamepadIndex, { ...axesData });
+                        });
                     }
                     this.isStickReleased[gamepadIndex] = true; 
                 }
